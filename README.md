@@ -22,5 +22,5 @@ The "on" or "off" options turns NumLock on or off.
 xkbwatch, xev, xmodmap -pm
 
 ### VERSION
-numlock-0.2a R.Jaksa 2024 GPLv3
+numlock-0.2b R.Jaksa 2024 GPLv3
 
