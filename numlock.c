@@ -53,7 +53,7 @@ char *rmod(int i) {
 
 // --------------------------------------------------- "NumLock" VIRTUAL MODIFIER
 
-void toggle_xkb(Display *d) {
+void toggle_modifier(Display *d) {
   XkbDescPtr k = XkbGetKeyboard(d,XkbAllComponentsMask,XkbUseCoreKbd);
 
   // get "NumLock" virtual modifier id
@@ -96,20 +96,19 @@ void toggle_keypress(Display *d) {
 
 int main(int argc, char *argv[]) {
 
-  for(int i=1;i<argc;i++) if(!strcmp(argv[i],"-h")) {
-    printf("%s\n    %s\n\n",HELP,SIGN); exit(0); }
-
-  for(int i=1;i<argc;i++) if(!strcmp(argv[i],"-v"))  VERBOSE=1;
-  for(int i=1;i<argc;i++) if(!strcmp(argv[i],"-s"))  MODE=2;
-  for(int i=1;i<argc;i++) if(!strcmp(argv[i],"-q"))  MODE=0;
-  for(int i=1;i<argc;i++) if(!strcmp(argv[i],"on"))  TOGGLE=1;
-  for(int i=1;i<argc;i++) if(!strcmp(argv[i],"off")) TOGGLE=0;
+  for(int i=1;i<argc;i++) {
+    if(!strcmp(argv[i],"-h")) { printf("%s\n    %s\n\n",HELP,SIGN); exit(0); }
+    if(!strcmp(argv[i],"-v"))  VERBOSE=1;
+    if(!strcmp(argv[i],"-s"))  MODE=2;
+    if(!strcmp(argv[i],"-q"))  MODE=0;
+    if(!strcmp(argv[i],"on"))  TOGGLE=1;
+    if(!strcmp(argv[i],"off")) TOGGLE=0; }
 
   // connect to X server
   Display *d = XOpenDisplay(0);
 
   // toggle
-  if(MODE==1) { toggle_xkb(d); }
+  if(MODE==1) { toggle_modifier(d); }
   if(MODE==2) { toggle_keypress(d); }
 
   // report final NumLock state
